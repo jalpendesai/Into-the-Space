@@ -16,10 +16,15 @@ public class GameController : MonoBehaviour {
 	public Text scoreText;
 	public Text restartText;
 	public Text gameOverText;
+    public Text livesText;
 
+    private bool startGame = false;
     private bool gameOver;
     private bool restart;
-    private int score;
+    private float startTime;
+    //private int score;
+    //private int lives;
+    private bool reloadScene = false;
 
 	// Use this for initialization
 	void Start () {
@@ -29,21 +34,42 @@ public class GameController : MonoBehaviour {
 		scoreText.text = "";
 		restartText.text = "";
 		gameOverText.text = "";
+        livesText.text = "";
 
-        score = 0;
+        //score = 0;
+        //lives = 4;
 		UpdateScore ();
+        UpdateLives();
         StartCoroutine(SpawnWaves()); // Starts and calls my coroutine
+    
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+        if (gameOver)
+        {
+            Restart();
+        }
+        else
+        {
+            if (reloadScene)
+            {
+                StartCoroutine(ReloadScene(3));
+                reloadScene = false;
+            }
+        }
+
+
 		if (restart) 
 		{
 			if (Input.GetKeyDown (KeyCode.R)) 
 			{
-				// Application.LoadLevel (Application.loadedLevel); -- DECPRICATED
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                // Application.LoadLevel (Application.loadedLevel); -- DECPRICATED
+                PlayerData.score = 0;
+                PlayerData.lives = 4;
+                restart = false;
+				StartCoroutine(ReloadScene(3));
 			}
 		}
 
@@ -52,6 +78,14 @@ public class GameController : MonoBehaviour {
 			Application.Quit ();
 		}
 	}
+
+    void FixedUpdate()
+    {
+        //if(!gameOver && startGame)
+        //{
+
+        //}
+    }
 
     IEnumerator SpawnWaves()
     {
@@ -77,17 +111,52 @@ public class GameController : MonoBehaviour {
         }
     }
 
-	public void AddScore(int newScoreValue) 
+    IEnumerator ReloadScene(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        startGame = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        startTime = Time.time;
+    }
+
+    public void Restart()
+    {
+        restart = true;
+    }
+
+    public void AddScore(int newScoreValue) 
 	{
-		score += newScoreValue;
+        PlayerData.score += newScoreValue;
 		// score = score + newScoreValue;
 		UpdateScore();
 	}
 
+    public void ReduceLives()
+    {
+        PlayerData.lives --;
+        reloadScene = true;
+        UpdateLives();
+
+        //if (lives == 0)
+        //{
+        //    GameOver();
+        //}
+    }
+
+    public bool LivesLeft()
+    {
+        return PlayerData.lives > 0;
+    }
+
     void UpdateScore()
     {
         // Text for the score will go here!
-		scoreText.text = "Score: " + score;
+		scoreText.text = "Score: " + PlayerData.score;
+    }
+
+    void UpdateLives()
+    {
+        livesText.text = "Lives: " + PlayerData.lives;
     }
 
 	public void GameOver() 

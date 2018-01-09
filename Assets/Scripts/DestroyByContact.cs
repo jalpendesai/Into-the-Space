@@ -36,7 +36,13 @@ public class DestroyByContact : MonoBehaviour {
         if(other.tag == "Player")
         {
             Instantiate(explosionPlayer, other.gameObject.transform.position, other.gameObject.transform.rotation);
-			gameController.GameOver ();
+            gameController.ReduceLives();
+            //gameController.GameOver ();
+
+            if (!gameController.LivesLeft())
+            {
+                gameController.GameOver();
+            }
         }
 			
         Instantiate(explosion, this.transform.position, this.transform.rotation);
