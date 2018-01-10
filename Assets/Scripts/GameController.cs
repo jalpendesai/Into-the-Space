@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     public float waveWait; // How long between waves of enemies
 
 	public Text scoreText;
+    public Text highScoreText;
 	public Text restartText;
 	public Text gameOverText;
     public Text livesText;
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour {
         //lives = 4;
 		UpdateScore ();
         UpdateLives();
+        UpdateHighScore();
         StartCoroutine(SpawnWaves()); // Starts and calls my coroutine
     
 	}
@@ -85,6 +87,10 @@ public class GameController : MonoBehaviour {
         //{
 
         //}
+        if(PlayerData.score > PlayerData.HighScore)
+        {
+            PlayerData.HighScore = PlayerData.score;
+        }
     }
 
     IEnumerator SpawnWaves()
@@ -153,6 +159,17 @@ public class GameController : MonoBehaviour {
         // Text for the score will go here!
 		scoreText.text = "Score: " + PlayerData.score;
     }
+
+    void UpdateHighScore()
+    {
+        highScoreText.text = "HighScore: " + PlayerData.HighScore;
+    }
+
+    //void AddHighScore(int newHighestScore)
+    //{
+    //    PlayerData.HighScore += newHighestScore();
+    //    UpdateHighScore();
+    //}
 
     void UpdateLives()
     {
