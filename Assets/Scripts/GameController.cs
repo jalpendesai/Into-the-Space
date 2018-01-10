@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     public float startWait; // How long do we wait for the 1st wave
     public float spawnWait; // How long between each asteroid spawn?
     public float waveWait; // How long between waves of enemies
+    public SpawnEnemy[] spawnEnemy;
 
 	public Text scoreText;
     public Text highScoreText;
@@ -43,7 +44,7 @@ public class GameController : MonoBehaviour {
         UpdateLives();
         UpdateHighScore();
         StartCoroutine(SpawnWaves()); // Starts and calls my coroutine
-    
+        //StartCoroutine(SpawnEnemies());
 	}
 	
 	// Update is called once per frame
@@ -116,6 +117,15 @@ public class GameController : MonoBehaviour {
             }
         }
     }
+
+    //IEnumerator SpawnEnemies()
+    //{
+    //    yield return new WaitForSeconds(startWait);
+    //    for(int i = 0; i < SpawnEnemy.Length, i++)
+    //    {
+
+    //    }
+    //}
 
     IEnumerator ReloadScene(float waitTime)
     {

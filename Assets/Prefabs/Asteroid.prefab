@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 50218533897530354}
   - component: {fileID: 70075568266827654}
   - component: {fileID: 114321520771619052}
+  - component: {fileID: 114852753824359836}
   - component: {fileID: 114900394881953522}
   - component: {fileID: 114799658146701658}
   m_Layer: 0
@@ -136,6 +137,25 @@ MonoBehaviour:
     type: 2}
   explosion: {fileID: 1791758041191874, guid: 48f5cc15efb90c04d8cbb30dec59805f, type: 2}
   scoreValue: 10
+--- !u!114 &114852753824359836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823240727490432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304e589f792f65346976cdfb8fa668ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSpeed: 0
+  movementAmplitude: 0
+  angularFrequency: 0
+  boundary:
+    xMin: 0
+    xMax: 0
+    yMin: 0
+    yMax: 0
 --- !u!114 &114900394881953522
 MonoBehaviour:
   m_ObjectHideFlags: 1
